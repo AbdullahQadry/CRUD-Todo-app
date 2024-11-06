@@ -1,3 +1,11 @@
+<script>
+
+    let email = '';
+    let password = '';
+    let repassword = '';
+
+</script>
+
 <div class="AuthContainer">
     <form class="box" action="">
         <div class="box"></div>
@@ -25,20 +33,22 @@
                         <line style="fill:none;stroke:#000000;stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="378.374" y1="397.086" x2="410.502" y2="397.086"/>
                 </g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g> <g></g><g></g><g></g><g></g>
             </svg>
-            
+
         <h1>Login to your<br>todo app</h1>
     </div>
 <div class="formcontent">
 
-    <label for="email"></label>
-    <input type="email" id="email" name="email" placeholder="Email" />
+    <label>
+    <input bind:value={email} type="email" placeholder="Email" />
+    </label>
     
-    <label for="password"></label>
-    <input type="password" id="password" name="password" placeholder="Password" />
+    <label>
+    <input bind:value={password} type="password" placeholder="Password" />
+    </label>
     
-    <label for="password"></label>
-    <input type="password" id="repassword" name="repassword" placeholder="Repeat password" />
-    
+    <label>
+    <input bind:value={repassword} type="password" placeholder="Repeat password" />
+    </label>
     <button type="button"> Login </button>
 
 </div>
@@ -57,8 +67,10 @@
     justify-content: center;
     align-items: center;
     flex: 1;
+    flex: 1;
     height: 100vh;
     width: 100vw;
+    background-color: #e9e9e9;
     background-color: #e9e9e9;
 }
 
@@ -68,9 +80,14 @@ form {
     flex-direction: row;
     justify-content: center;
     align-items: left;
+    flex-direction: row;
+    justify-content: center;
+    align-items: left;
     text-align: left;
     gap: 60px;
+    gap: 60px;
     width: 50%;
+    height: auto;
     height: auto;
     background-color: white;
     border-radius: 10px;
@@ -89,7 +106,7 @@ form {
     margin-right: 40px;
 }
 
-form input {
+form label {
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -101,6 +118,10 @@ form input {
 
 }
 
+form input{
+    width: inherit;
+    border: none;
+}
 form h1{
     text-align: left;
     margin: 0;
