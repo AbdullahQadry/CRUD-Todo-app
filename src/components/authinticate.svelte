@@ -1,8 +1,23 @@
 <script>
 
-    let email = '';
-    let password = '';
-    let repassword = '';
+    let email = "";
+    let password = "";
+    let repassword = "";
+    let error = false;
+    let register = false;
+
+    function VerfiyAuth() {
+
+        if (!email || !password || (register && !repassword)) {
+            error = true;
+            return;
+        }
+    }
+
+    function registerswitch() {
+        register = !register;
+    }
+
 
 </script>
 
@@ -10,7 +25,7 @@
     <form class="box" action="">
         <div class="box"></div>
         <div> 
-            <svg width=100px height=100px version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+            <svg width=80px height=80px version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
             <g>
                 <g>
                     <path style="fill:none;stroke:#000000;stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="&#10;&#9;&#9;&#9;M492,331.277V80.919c0-33.137-26.863-60-60-60H80c-33.137,0-60,26.863-60,60v350.163c0,33.137,26.863,60,60,60h352&#10;&#9;&#9;&#9;c33.071,0,59.889-26.758,59.995-59.804"/>
@@ -34,9 +49,36 @@
                 </g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g> <g></g><g></g><g></g><g></g>
             </svg>
 
-        <h1>Login to your<br>todo app</h1>
+        <h1>
+        {#if register}
+            <span>
+                Register to your<br>favorite todo app
+            </span>
+        {:else}
+            <span>
+                Login to your<br>favorite todo app
+            </span>
+        {/if}
+    </h1>
+     <div class="otherway">
+        {#if register}
+            <div>
+                <p style="display:inline-block">Already have an account?</p>
+                <button class="switcher" on:click={registerswitch} on:keydown={() => {}}>Login</button>
+            </div>
+        {:else}
+            <div>
+                <p style="display:inline-block">Don't have an account?</p>
+                <button class="switcher" on:click={registerswitch} on:keydown={() => {}}>Register</button>
+            </div>
+        {/if}
+    </div>
     </div>
 <div class="formcontent">
+    
+    {#if error}
+    <p class="error">The information you entered is incorrect!</p>
+    {/if}
 
     <label>
     <input bind:value={email} type="email" placeholder="Email" />
@@ -46,9 +88,12 @@
     <input bind:value={password} type="password" placeholder="Password" />
     </label>
     
+    {#if register}
     <label>
     <input bind:value={repassword} type="password" placeholder="Repeat password" />
     </label>
+    {/if}
+
     <button type="button"> Login </button>
 
 </div>
@@ -86,12 +131,12 @@ form {
     text-align: left;
     gap: 60px;
     gap: 60px;
-    width: 50%;
+    width: 60%;
     height: auto;
     height: auto;
     background-color: white;
     border-radius: 10px;
-    padding: 60px;
+    padding: 80px 80px;
 }
 
 .formcontent {
@@ -100,10 +145,11 @@ form {
     flex-direction: column;
     justify-content: left;
     align-items:flex-end;
-    gap: 14px;
-    width: 40%;
+    gap: 30px;
+    width: 34%;
     height: 100%;
     margin-right: 40px;
+    margin-top: 40px;
 }
 
 form label {
@@ -111,17 +157,30 @@ form label {
     box-sizing: border-box;
     width: 100%;
     padding: 14px;
-    font-size: 18px;
+    font-size: 14px;
     border-width: 20px;
     border: solid 1px rgb(211, 211, 211);
     margin: 0;
 
 }
 
-form input{
-    width: inherit;
-    border: none;
+form input {
+        border: none;
+        background: transparent;
+        width: inherit;
+        border: none;
+        font-size: inherit;
+        font-weight: 600;
 }
+    form input:focus {
+        border: none;
+        outline: none;
+    }
+
+    form input::placeholder {
+        font-weight: 400;
+    }
+
 form h1{
     text-align: left;
     margin: 0;
@@ -135,7 +194,6 @@ form button{
     font-size: 18px;
     padding: 12px 30px;
     border-radius: 4px;
-    margin-top: 20px;
     margin-left: auto;
     cursor: pointer;
     transition: 0.4s;
@@ -143,6 +201,38 @@ form button{
     form button:hover {
         border-radius: 16px;
     }
+
+.error {
+    color: rgb(255, 81, 81);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    margin-right: auto;
+}
+
+
+.otherway {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+.switcher{
+    color: black;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 0;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
 .box {
   position: relative;
   transform-style: preserve-3d;
