@@ -41,7 +41,7 @@
     <div class="List">
         <div class="Todo">
             <input type="checkbox">
-            <span>Buy groceries</span>
+            <span>Testing git changes</span>
             <button><i class="fa-solid fa-trash" style="margin-right: 10px;"></i>Delete</button>
         </div>
         <div class="Todo">
