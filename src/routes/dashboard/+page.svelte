@@ -1,3 +1,18 @@
+<script>
+    let TodoList = [];
+    let currentTodo = '';
+    let error = false;
+    
+    function AddTodo() {
+        error = false;
+        if (!currentTodo) {
+            error = true;
+        }
+        TodoList = [...TodoList, currentTodo];
+        currentTodo = "";
+    }
+</script>
+
 <div class="MainContainer">
 
     <div class="HeaderContainer">
@@ -39,26 +54,22 @@
     </div>
 
     <div class="List">
-        <div class="Todo">
-            <input type="checkbox">
-            <span>Testing git changes</span>
-            <button><i class="fa-solid fa-trash" style="margin-right: 10px;"></i>Delete</button>
+        {#each TodoList as todo, index}
+        <div class="TodoItem"> 
+
+            <div><input type="checkbox"> {index+1}. {todo}</div>
+            <div class="actions">
+                <i class="fa-regular fa-edit" style="margin-right: 10px;"></i>
+                <i class="fa-regular fa-trash-can" style="margin-right: 10px;"></i>
+            </div> 
+
         </div>
-        <div class="Todo">
-            <input type="checkbox">
-            <span>Buy groceries</span>
-            <button><i class="fa-solid fa-trash" style="margin-right: 10px;"></i>Delete</button>
-        </div>
-        <div class="Todo">
-            <input type="checkbox">
-            <span>Buy groceries</span>
-            <button><i class="fa-solid fa-trash" style="margin-right: 10px;"></i>Delete</button>
-        </div>
+    {/each}
     </div>
 
-    <div class="AddTodo">
-        <input class="" type="text" placeholder="What do you want to do next?">
-        <button><i class="fa-regular fa-square-plus" style="margin-right: 10px;"></i>Add</button>
+    <div class="AddTodo" >
+        <input bind:value={currentTodo} type="text" placeholder="What do you want to do next?">
+        <button on:click={AddTodo}><i class="fa-regular fa-square-plus" style="margin-right: 10px;"></i>Add</button>
     </div>
 </div>
 
@@ -113,9 +124,30 @@
     .List {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 0px;
         padding: 20px;
         flex: 1;
+    }
+
+    .TodoItem {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 20px;
+    }
+    .actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .actions i {
+        cursor: pointer;
+    } 
+
+    .actions i:hover {
+        color: #bb61fc;
     }
 
     .AddTodo {
