@@ -1,7 +1,12 @@
 <script>
+        import { onMount } from 'svelte';
     let TodoList = [];
     let currentTodo = '';
     let error = false;
+    let editIndex = null;
+    let showModal = false;
+    let editInput;
+    let addTodoInput;
     
     function AddTodo() {
         error = false;
@@ -10,6 +15,45 @@
         }
         TodoList = [...TodoList, currentTodo];
         currentTodo = "";
+    }
+    
+    function editTodoModal(index) {
+            currentTodo = TodoList[index];
+            editIndex = index;
+            showModal = true;
+        }
+
+    function saveTodo() {
+            if (editIndex !== null) {
+                TodoList[editIndex] = currentTodo;
+                currentTodo = '';
+                editIndex = null;
+                showModal = false;
+            }
+        }
+
+    function closeModal() {
+            currentTodo = '';
+            editIndex = null;
+            showModal = false;
+        }
+
+        function handleKeydown(event) {
+        if (event.key === 'Enter') {
+            if (showModal) {
+                saveTodo();
+            } else {
+                AddTodo();
+            }
+        }
+    }
+
+    $: {
+        if (showModal && editInput) {
+            editInput.focus();
+        } else if (!showModal && addTodoInput) {
+            addTodoInput.focus();
+        }
     }
 </script>
 
@@ -53,13 +97,14 @@
         
     </div>
 
-    <div class="List">
+    <div class="List" >
         {#each TodoList as todo, index}
         <div class="TodoItem"> 
 
             <div><input type="checkbox"> {index+1}. {todo}</div>
             <div class="actions">
-                <i class="fa-regular fa-edit" style="margin-right: 10px;"></i>
+                <!-- svelte-ignore a11y_no_static_element_interactions -->
+                <i on:click={() => editTodoModal(index)} on:keydown={() => {}} class="fa-regular fa-edit" style="margin-right: 10px;"></i>
                 <i class="fa-regular fa-trash-can" style="margin-right: 10px;"></i>
             </div> 
 
@@ -67,8 +112,19 @@
     {/each}
     </div>
 
-    <div class="AddTodo" >
-        <input bind:value={currentTodo} type="text" placeholder="What do you want to do next?">
+    {#if showModal}
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="modal" on:keydown={handleKeydown}>
+        <div class="modal-content">
+            <!-- svelte-ignore a11y_no_static_element_interactions -->
+            <span class="close" on:click={closeModal} on:keydown={() => {}}>&times;</span>
+            <input bind:value={currentTodo} class="EditTodo" type="text" placeholder="Edit your todo" bind:this={editInput}>
+        </div>
+    </div>
+{/if}
+
+    <div class="AddTodo">
+        <input bind:value={currentTodo} on:keydown={handleKeydown} bind:this={addTodoInput} type="text" placeholder="What do you want to do next?">
         <button on:click={AddTodo}><i class="fa-regular fa-square-plus" style="margin-right: 10px;"></i>Add</button>
     </div>
 </div>
@@ -124,7 +180,7 @@
     .List {
         display: flex;
         flex-direction: column;
-        gap: 0px;
+        gap: 20px;
         padding: 20px;
         flex: 1;
     }
@@ -134,7 +190,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 20px;
-        padding: 20px;
+        padding: 0px;
     }
     .actions {
         display: flex;
@@ -178,4 +234,55 @@
         input::placeholder{
             font-weight: 400;
         }
+
+    .modal {
+                display: block;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+                backdrop-filter: blur(20px);
+            }
+
+            .modal-content {
+                background-color: #ffffff;
+                margin: 15% auto;
+                padding: 60px;
+                border: 1px solid #888;
+                width: 70%;
+                border-radius: 10px;
+            }
+
+            .EditTodo {
+                background-color: white;
+                position: relative;
+                padding: 20px;
+                font-size: 16px;
+                border: none;
+                border-radius: 2px;
+                font-weight: 600;
+                width: 60%;
+                margin-right: 20px;
+            }
+
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    
 </style>
