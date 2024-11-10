@@ -17,6 +17,14 @@
         currentTodo = "";
     }
     
+    function removeTodo(index) {
+        let newTodoList = [...TodoList].filter((val, i) => {
+            console.log(i, index, i !== index);
+            return i != index;
+        });
+        TodoList = newTodoList;
+    }
+
     function editTodoModal(index) {
             currentTodo = TodoList[index];
             editIndex = index;
@@ -98,6 +106,13 @@
     </div>
 
     <div class="List" >
+        {#if TodoList.length === 0}
+        <div class="EmptyList">
+            <i class="fa-solid fa-champagne-glasses wine"></i>
+            <h3>Nothing to do, horraaay!</h3>
+        </div>
+        {/if}
+
         {#each TodoList as todo, index}
         <div class="TodoItem"> 
 
@@ -105,7 +120,8 @@
             <div class="actions">
                 <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <i on:click={() => editTodoModal(index)} on:keydown={() => {}} class="fa-regular fa-edit" style="margin-right: 10px;"></i>
-                <i class="fa-regular fa-trash-can" style="margin-right: 10px;"></i>
+                <!-- svelte-ignore a11y_no_static_element_interactions -->
+                <i on:click={() => removeTodo(index)} on:keydown={() => {}} class="fa-regular fa-trash-can" style="margin-right: 10px;"></i>
             </div> 
 
         </div>
@@ -185,6 +201,22 @@
         flex: 1;
     }
 
+    .EmptyList {
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 100px;
+        color: #919191;
+    }
+
+    .wine {
+        color: #e2316c;
+        font-size: 3rem;
+    }
+
     .TodoItem {
         display: flex;
         align-items: center;
@@ -252,9 +284,9 @@
             .modal-content {
                 background-color: #ffffff;
                 margin: 15% auto;
-                padding: 60px;
+                padding: 100px;
                 border: 1px solid #888;
-                width: 70%;
+                width: 60%;
                 border-radius: 10px;
             }
 
@@ -266,7 +298,7 @@
                 border: none;
                 border-radius: 2px;
                 font-weight: 600;
-                width: 60%;
+                width: 80%;
                 margin-right: 20px;
             }
 
