@@ -1,5 +1,11 @@
 <script>
-        import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
+  import { authHandler, authStore } from '../../store/store';
+  import { getDoc, doc, setDoc } from "firebase/firestore";
+  import { auth, db } from "../../lib/firebase/firebase";
+
+
+  
     let TodoList = [];
     let currentTodo = '';
     let error = false;
@@ -7,6 +13,21 @@
     let showModal = false;
     let editInput;
     let addTodoInput;
+
+    authStore.subscribe((curr) => {
+       TodoList = curr.data.todos;
+    });
+
+    async function StoreTodo() {
+           try {
+            const userRef = doc(db, 'users', $authStore.user.uid);
+            await setDoc(userRef, { todos: TodoList }, { merge: true });
+    
+           } catch (error) {
+               console.log('There was an error saving',error);
+            
+    }
+}
     
     function AddTodo() {
         error = false;
@@ -63,7 +84,10 @@
             addTodoInput.focus();
         }
     }
+
 </script>
+
+{#if !$authStore.loading}
 
 <div class="MainContainer">
 
@@ -99,8 +123,8 @@
         </div>
 
         <div class="CTA">
-            <button><i class="fa-regular fa-floppy-disk" style="margin-right: 10px;"></i>Save</button>
-            <button class="btn-outline"> <i class="fa-solid fa-arrow-right-from-bracket" style="margin-right: 10px;"></i>Logout</button>
+            <button on:click={StoreTodo}><i class="fa-regular fa-floppy-disk" style="margin-right: 10px;"></i>Save</button>
+            <button on:click={authHandler.logout} class="btn-outline"> <i class="fa-solid fa-arrow-right-from-bracket" style="margin-right: 10px;"></i>Logout</button>
         </div>
         
     </div>
@@ -144,6 +168,8 @@
         <button on:click={AddTodo}><i class="fa-regular fa-square-plus" style="margin-right: 10px;"></i>Add</button>
     </div>
 </div>
+
+{/if}
 
 <style>
 

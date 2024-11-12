@@ -1,17 +1,36 @@
+
 <script>
+    import {authHandler} from "../store/store";
 
     let email = "";
     let password = "";
     let repassword = "";
     let error = false;
     let register = false;
+    let Authing = false;
 
-    function VerfiyAuth() {
+    async function VerfiyAuth() {
+
+        if (Authing) return;
 
         if (!email || !password || (register && !repassword)) {
             error = true;
             return;
         }
+        Authing = true;
+        try { 
+            if (!register) {
+            await authHandler.login(email, password);
+        } else {
+            await authHandler.signup(email, password, repassword);
+        }
+            error = false;
+        } catch (errational) {
+            console.log("error", errational);
+            error = true;
+            Authing = false;
+        }
+        
     }
 
     function registerswitch() {
@@ -93,7 +112,8 @@
     </label>
     {/if}
 
-    <button type="button"> Login </button>
+    <button type="submit" on:click={VerfiyAuth}> Submit
+    </button>
 
 </div>
     
