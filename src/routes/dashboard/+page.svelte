@@ -3,11 +3,10 @@
   import { authHandler, authStore } from '../../store/store';
   import { getDoc, doc, setDoc } from "firebase/firestore";
   import { auth, db } from "../../lib/firebase/firebase";
-  import { writable } from 'svelte/store';
 
 
   
-    let TodoList = writable([]);
+    let TodoList = [];
     let currentTodo = '';
     let error = false;
     let editIndex = null;
@@ -30,39 +29,15 @@
     }
 }
     
-     async function AddTodo() {
-        const newTodo = { text: todoText, checked: false };
-        const docRef = await db.collection('todos').add(newTodo);
-        todos.update(currentTodos => [...currentTodos, { id: docRef.id, ...newTodo }]);
-        todoText = '';
+    function AddTodo() {
+        error = false;
+        if (!currentTodo) {
+            error = true;
+        }
+        TodoList = [...TodoList, currentTodo];
+        currentTodo = "";
     }
     
-    async function toggleTodoChecked(index) {
-        todos.update(currentTodos => {
-            const todo = currentTodos[index];
-            if (typeof todo === 'object' && todo !== null) {
-                todo.checked = !todo.checked;
-                db.collection('todos').doc(todo.id).update({ checked: todo.checked });
-            } else {
-                console.error('Invalid todo object:', todo);
-            }
-            return [...currentTodos];
-        });
-    }
-
-    async function loadTodos() {
-        try {
-            const snapshot = await db.collection('todos').get();
-            const loadedTodos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            todos.set(loadedTodos);
-        } catch (error) {
-            console.error("Error loading todos: ", error);
-        }
-    }
-
-    onMount(() => {
-        loadTodos();
-    });
     function removeTodo(index) {
         let newTodoList = [...TodoList].filter((val, i) => {
             console.log(i, index, i !== index);
@@ -72,34 +47,27 @@
     }
 
     function editTodoModal(index) {
-        currentTodo = TodoList[index];
-        if (typeof currentTodo !== 'object' || currentTodo === null) {
-            console.error('Invalid todo object:', currentTodo);
+            currentTodo = TodoList[index];
+            editIndex = index;
+            showModal = true;
         }
-        editIndex = index;
-        showModal = true;
-    }
 
     function saveTodo() {
-        if (editIndex !== null) {
-            if (typeof currentTodo === 'object' && currentTodo !== null) {
+            if (editIndex !== null) {
                 TodoList[editIndex] = currentTodo;
-            } else {
-                console.error('Invalid todo object:', currentTodo);
+                currentTodo = '';
+                editIndex = null;
+                showModal = false;
             }
+        }
+
+    function closeModal() {
             currentTodo = '';
             editIndex = null;
             showModal = false;
         }
-    }
 
-    function closeModal() {
-        currentTodo = '';
-        editIndex = null;
-        showModal = false;
-    }
-
-    function handleKeydown(event) {
+        function handleKeydown(event) {
         if (event.key === 'Enter') {
             if (showModal) {
                 saveTodo();
@@ -116,7 +84,6 @@
             addTodoInput.focus();
         }
     }
-    
 
 </script>
 
@@ -173,7 +140,7 @@
         {#each TodoList as todo, index}
         <div class="TodoItem"> 
 
-            <div><input type="checkbox" bind:checked={todo.checked} on:change={() => toggleTodoChecked(index)}> {index+1}. {todo}</div>
+            <div><input type="checkbox"> {index+1}. {todo}</div>
             <div class="actions">
                 <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <i on:click={() => editTodoModal(index)} on:keydown={() => {}} class="fa-regular fa-edit" style="margin-right: 10px;"></i>
