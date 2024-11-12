@@ -1,6 +1,8 @@
 
 <script>
     import {authHandler} from "../store/store";
+    import {onMount} from "svelte";
+
 
     let email = "";
     let password = "";
@@ -8,6 +10,12 @@
     let error = false;
     let register = false;
     let Authing = false;
+    let SubmitBtn;
+
+    onMount(() => {
+       SubmitBtn.focus();
+    });
+
 
     async function VerfiyAuth() {
 
@@ -35,6 +43,14 @@
 
     function registerswitch() {
         register = !register;
+    }
+
+
+    function handleKeyDown(event) {
+        if (event.key === "Enter") {
+            SubmitBtn.focus();
+            SubmitBtn.click();
+        }
     }
 
 
@@ -112,7 +128,7 @@
     </label>
     {/if}
 
-    <button type="submit" on:click={VerfiyAuth}> Submit
+    <button bind:this={SubmitBtn} on:keydown={handleKeyDown} type="submit" on:click={VerfiyAuth}> {#if register} create your account {:else} Login {/if}
     </button>
 
 </div>
