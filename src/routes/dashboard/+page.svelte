@@ -13,10 +13,28 @@
     let showModal = false;
     let editInput;
     let addTodoInput;
+    let isChecked = false;
 
     authStore.subscribe((curr) => {
        TodoList = curr.data.todos;
     });
+
+    onMount(async () => {
+    const docRef = doc(db, 'checkboxState', 'state');
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      isChecked = docSnap.data().checked;
+    }
+  });
+
+  // Save the state to Firestore whenever it changes
+  async function handleCheckboxChange(event) {
+    isChecked = event.target.checked;
+    await setDoc(doc(db, 'checkboxState', 'state'), {
+      checked: isChecked
+    });
+  }
 
     async function StoreTodo() {
            try {
@@ -140,7 +158,7 @@
         {#each TodoList as todo, index}
         <div class="TodoItem"> 
 
-            <div><input type="checkbox"> {index+1}. {todo}</div>
+            <div><input type="checkbox" bind:checked={isChecked} on:change={handleCheckboxChange}> {index+1}. {todo}</div>
             <div class="actions">
                 <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <i on:click={() => editTodoModal(index)} on:keydown={() => {}} class="fa-regular fa-edit" style="margin-right: 10px;"></i>
