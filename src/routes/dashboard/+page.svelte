@@ -3,10 +3,14 @@
   import { authHandler, authStore } from '../../store/store';
   import { getDoc, doc, setDoc } from "firebase/firestore";
   import { auth, db } from "../../lib/firebase/firebase";
+  import TodoItem from '../../components/TodoItem.svelte';
+
 
 
   
-    let TodoList = [];
+  let TodoList = [
+    
+  ];
     let currentTodo = '';
     let error = false;
     let editIndex = null;
@@ -19,23 +23,7 @@
        TodoList = curr.data.todos;
     });
 
-    onMount(async () => {
-    const docRef = doc(db, 'checkboxState', 'state');
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      isChecked = docSnap.data().checked;
-    }
-  });
-
-  // Save the state to Firestore whenever it changes
-  async function handleCheckboxChange(event) {
-    isChecked = event.target.checked;
-    await setDoc(doc(db, 'checkboxState', 'state'), {
-      checked: isChecked
-    });
-  }
-
+    
     async function StoreTodo() {
            try {
             const userRef = doc(db, 'users', $authStore.user.uid);
@@ -155,19 +143,27 @@
         </div>
         {/if}
 
+
         {#each TodoList as todo, index}
+  <TodoItem
+    id={todo.id}
+    todo={todo.text}
+    index={index}
+    {editTodoModal}
+    {removeTodo}
+  />
+{/each}
+      <!-- {#each TodoList as todo, index}
         <div class="TodoItem"> 
 
             <div><input type="checkbox" bind:checked={isChecked} on:change={handleCheckboxChange}> {index+1}. {todo}</div>
             <div class="actions">
-                <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <i on:click={() => editTodoModal(index)} on:keydown={() => {}} class="fa-regular fa-edit" style="margin-right: 10px;"></i>
-                <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <i on:click={() => removeTodo(index)} on:keydown={() => {}} class="fa-regular fa-trash-can" style="margin-right: 10px;"></i>
             </div> 
 
         </div>
-    {/each}
+    {/each} -->
     </div>
 
     {#if showModal}
