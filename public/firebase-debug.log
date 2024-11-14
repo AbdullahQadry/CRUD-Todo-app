@@ -1,0 +1,86 @@
+[debug] [2024-11-14T15:58:41.204Z] ----------------------------------------------------------------------
+[debug] [2024-11-14T15:58:41.207Z] Command:       /usr/local/Cellar/node/23.1.0_1/bin/node /usr/local/bin/firebase serve --only hosting
+[debug] [2024-11-14T15:58:41.208Z] CLI Version:   13.25.0
+[debug] [2024-11-14T15:58:41.208Z] Platform:      darwin
+[debug] [2024-11-14T15:58:41.208Z] Node Version:  v23.1.0
+[debug] [2024-11-14T15:58:41.208Z] Time:          Thu Nov 14 2024 16:58:41 GMT+0100 (Central European Standard Time)
+[debug] [2024-11-14T15:58:41.208Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-14T15:58:41.275Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-14T15:58:41.275Z] > authorizing via signed-in user (abdulla.qadry@code.berlin)
+[debug] [2024-11-14T15:58:41.276Z] [iam] checking project todo-crud-app-c26e1 for permissions ["firebase.projects.get"]
+[debug] [2024-11-14T15:58:41.276Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:41.277Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:41.277Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions [none]
+[debug] [2024-11-14T15:58:41.277Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions x-goog-quota-user=projects/todo-crud-app-c26e1
+[debug] [2024-11-14T15:58:41.278Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-11-14T15:58:41.556Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions 200
+[debug] [2024-11-14T15:58:41.556Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-11-14T15:58:41.556Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:41.556Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:41.557Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 [none]
+[debug] [2024-11-14T15:58:41.862Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 200
+[debug] [2024-11-14T15:58:41.863Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 {"projectId":"todo-crud-app-c26e1","projectNumber":"26200167148","displayName":"Todo-CRUD-app","name":"projects/todo-crud-app-c26e1","resources":{"hostingSite":"todo-crud-app-c26e1"},"state":"ACTIVE","etag":"1_ee1b1106-e8d0-486c-b2d4-a4df32de0b38"}
+[debug] [2024-11-14T15:58:41.865Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:41.865Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:41.866Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/sites 
+[debug] [2024-11-14T15:58:43.040Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/sites 200
+[debug] [2024-11-14T15:58:43.040Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/sites {"sites":[{"name":"projects/todo-crud-app-c26e1/sites/todo-crud-app-c26e1","defaultUrl":"https://todo-crud-app-c26e1.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2024-11-14T15:58:43.041Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:43.041Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:43.041Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/webApps/-/config [none]
+[debug] [2024-11-14T15:58:43.622Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/webApps/-/config 200
+[debug] [2024-11-14T15:58:43.623Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/webApps/-/config {"projectId":"todo-crud-app-c26e1","appId":"1:26200167148:web:df4923ba023bbfd8238bc9","storageBucket":"todo-crud-app-c26e1.firebasestorage.app","apiKey":"AIzaSyCFk2G-wv0fyvs0jevR1TozjbcMGY3bZy4","authDomain":"todo-crud-app-c26e1.firebaseapp.com","messagingSenderId":"26200167148"}
+[debug] [2024-11-14T15:58:43.648Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:43.649Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T15:58:43.649Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 [none]
+[debug] [2024-11-14T15:58:44.005Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 200
+[debug] [2024-11-14T15:58:44.005Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 {"projectId":"todo-crud-app-c26e1","projectNumber":"26200167148","displayName":"Todo-CRUD-app","name":"projects/todo-crud-app-c26e1","resources":{"hostingSite":"todo-crud-app-c26e1"},"state":"ACTIVE","etag":"1_ee1b1106-e8d0-486c-b2d4-a4df32de0b38"}
+[info] i  hosting[todo-crud-app-c26e1]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] ✔  hosting[todo-crud-app-c26e1]: Local server: http://localhost:5002 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5002\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [14/Nov/2024:15:58:48 +0000] "GET / HTTP/1.1" 500 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [14/Nov/2024:15:58:48 +0000] \"GET / HTTP/1.1\" 500 - \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [14/Nov/2024:15:58:48 +0000] "GET /favicon.ico HTTP/1.1" 500 - "http://localhost:5002/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [14/Nov/2024:15:58:48 +0000] \"GET /favicon.ico HTTP/1.1\" 500 - \"http://localhost:5002/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [14/Nov/2024:15:58:51 +0000] "GET / HTTP/1.1" 500 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [14/Nov/2024:15:58:51 +0000] \"GET / HTTP/1.1\" 500 - \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [14/Nov/2024:15:58:51 +0000] "GET /favicon.ico HTTP/1.1" 500 - "http://localhost:5002/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [14/Nov/2024:15:58:51 +0000] \"GET /favicon.ico HTTP/1.1\" 500 - \"http://localhost:5002/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36\""}}
+[debug] [2024-11-14T16:04:43.799Z] ----------------------------------------------------------------------
+[debug] [2024-11-14T16:04:43.802Z] Command:       /usr/local/Cellar/node/23.1.0_1/bin/node /usr/local/bin/firebase serve --only hosting
+[debug] [2024-11-14T16:04:43.803Z] CLI Version:   13.25.0
+[debug] [2024-11-14T16:04:43.803Z] Platform:      darwin
+[debug] [2024-11-14T16:04:43.803Z] Node Version:  v23.1.0
+[debug] [2024-11-14T16:04:43.803Z] Time:          Thu Nov 14 2024 17:04:43 GMT+0100 (Central European Standard Time)
+[debug] [2024-11-14T16:04:43.803Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-14T16:04:43.869Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-14T16:04:43.869Z] > authorizing via signed-in user (abdulla.qadry@code.berlin)
+[debug] [2024-11-14T16:04:43.869Z] [iam] checking project todo-crud-app-c26e1 for permissions ["firebase.projects.get"]
+[debug] [2024-11-14T16:04:43.870Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:43.870Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:43.871Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions [none]
+[debug] [2024-11-14T16:04:43.871Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions x-goog-quota-user=projects/todo-crud-app-c26e1
+[debug] [2024-11-14T16:04:43.871Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-11-14T16:04:44.603Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions 200
+[debug] [2024-11-14T16:04:44.604Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-crud-app-c26e1:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-11-14T16:04:44.605Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:44.605Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:44.605Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 [none]
+[debug] [2024-11-14T16:04:45.078Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 200
+[debug] [2024-11-14T16:04:45.078Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 {"projectId":"todo-crud-app-c26e1","projectNumber":"26200167148","displayName":"Todo-CRUD-app","name":"projects/todo-crud-app-c26e1","resources":{"hostingSite":"todo-crud-app-c26e1"},"state":"ACTIVE","etag":"1_ee1b1106-e8d0-486c-b2d4-a4df32de0b38"}
+[debug] [2024-11-14T16:04:45.081Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:45.081Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:45.081Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/sites 
+[debug] [2024-11-14T16:04:46.304Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/sites 200
+[debug] [2024-11-14T16:04:46.304Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/sites {"sites":[{"name":"projects/todo-crud-app-c26e1/sites/todo-crud-app-c26e1","defaultUrl":"https://todo-crud-app-c26e1.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2024-11-14T16:04:46.305Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:46.305Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:46.305Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/webApps/-/config [none]
+[debug] [2024-11-14T16:04:46.915Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/webApps/-/config 200
+[debug] [2024-11-14T16:04:46.915Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1/webApps/-/config {"projectId":"todo-crud-app-c26e1","appId":"1:26200167148:web:df4923ba023bbfd8238bc9","storageBucket":"todo-crud-app-c26e1.firebasestorage.app","apiKey":"AIzaSyCFk2G-wv0fyvs0jevR1TozjbcMGY3bZy4","authDomain":"todo-crud-app-c26e1.firebaseapp.com","messagingSenderId":"26200167148"}
+[debug] [2024-11-14T16:04:46.944Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:46.945Z] Checked if tokens are valid: true, expires at: 1731602144098
+[debug] [2024-11-14T16:04:46.945Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 [none]
+[debug] [2024-11-14T16:04:47.394Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 200
+[debug] [2024-11-14T16:04:47.394Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/todo-crud-app-c26e1 {"projectId":"todo-crud-app-c26e1","projectNumber":"26200167148","displayName":"Todo-CRUD-app","name":"projects/todo-crud-app-c26e1","resources":{"hostingSite":"todo-crud-app-c26e1"},"state":"ACTIVE","etag":"1_ee1b1106-e8d0-486c-b2d4-a4df32de0b38"}
+[info] i  hosting[todo-crud-app-c26e1]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] ✔  hosting[todo-crud-app-c26e1]: Local server: http://localhost:5002 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5002\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [14/Nov/2024:16:04:53 +0000] "GET / HTTP/1.1" 500 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [14/Nov/2024:16:04:53 +0000] \"GET / HTTP/1.1\" 500 - \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [14/Nov/2024:16:04:54 +0000] "GET /favicon.ico HTTP/1.1" 500 - "http://localhost:5002/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [14/Nov/2024:16:04:54 +0000] \"GET /favicon.ico HTTP/1.1\" 500 - \"http://localhost:5002/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36\""}}
