@@ -1,5 +1,5 @@
 {
-	"name": "mychessgame",
+	"name": "crud-svelte-todo",
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
