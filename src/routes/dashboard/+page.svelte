@@ -13,29 +13,13 @@
     let showModal = false;
     let editInput;
     let addTodoInput;
-    let isChecked = false;
 
     authStore.subscribe((curr) => {
        TodoList = curr.data.todos;
     });
 
-    onMount(async () => {
-    const docRef = doc(db, 'checkboxState', 'state');
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      isChecked = docSnap.data().checked;
-    }
-  });
-
-  // Save the state to Firestore whenever it changes
-  async function handleCheckboxChange(event) {
-    isChecked = event.target.checked;
-    await setDoc(doc(db, 'checkboxState', 'state'), {
-      checked: isChecked
-    });
-  }
-
+    
+    
     async function StoreTodo() {
            try {
             const userRef = doc(db, 'users', $authStore.user.uid);
@@ -46,7 +30,8 @@
             
     }
 }
-    
+
+
     function AddTodo() {
         error = false;
         if (!currentTodo) {
@@ -157,8 +142,13 @@
 
         {#each TodoList as todo, index}
         <div class="TodoItem"> 
+            
+            
 
-            <div><input type="checkbox" bind:checked={isChecked} on:change={handleCheckboxChange}> {index+1}. {todo}</div>
+            <div class="ItemDetails actions">
+                <!-- svelte-ignore a11y_no_static_element_interactions -->
+                <i on:click={() => removeTodo(index)} on:keydown={() => {}} class="fa-regular fa-circle-check"></i>
+                <p> {index+1}. {todo}</p></div>
             <div class="actions">
                 <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <i on:click={() => editTodoModal(index)} on:keydown={() => {}} class="fa-regular fa-edit" style="margin-right: 10px;"></i>
@@ -266,7 +256,10 @@
         align-items: center;
         justify-content: space-between;
         gap: 20px;
-        padding: 0px;
+        padding: 20px 40px;
+        background-color: #eeeeee;
+        border-radius: 10px;
+        margin: 0 60px;
     }
     .actions {
         display: flex;
@@ -281,6 +274,23 @@
     .actions i:hover {
         color: #bb61fc;
     }
+
+
+    .ItemDetails {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .ItemDetails p {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .fa-circle-check {
+        font-size: 1.2rem;
+    }
+
 
     .AddTodo {
         position: fixed;
