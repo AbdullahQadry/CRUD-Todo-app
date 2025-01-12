@@ -48,25 +48,42 @@ app.get('/users/:id/todos', async (req, res) => {
     }
 });
 
+// Route to set todos for a specific user, deletes all previous todos
 app.post('/users/:id/todos', async (req, res) => {
     const userId = req.params.id;
-    const { content } = req.body;
+    const todos = req.body;
 
-    if (!content) {
-        return res.status(400).json({ error: 'Todo content is required.' });
+    if (!Array.isArray(todos) || todos.length === 0) {
+        return res.status(400).json({ error: 'A non-empty array of todos is required.' });
     }
 
     try {
-        // Insert the new todo into the database
-        const result = await pool.query(
-            'INSERT INTO todos (user_id, content) VALUES ($1, $2) RETURNING *',
-            [userId, content]
-        );
 
-        // Return the newly created todo
-        res.status(201).json(result.rows[0]);
+        // Delete all todos for the user
+        const delteResult = await pool.query('DELETE FROM todos WHERE user_id = $1', [userId]);
+        console.log(`Deleted ${delteResult.rowCount} todos for user ${userId}.`)
+
+        // Create query placeholders for bulk insert
+        const values = [];
+        const placeholders = todos.map((content, index) => {
+            values.push(userId, content);
+            return `($${index * 2 + 1}, $${index * 2 + 2})`;
+        });
+
+        // Construct the query
+        const query = `
+        INSERT INTO todos (user_id, content)
+        VALUES ${placeholders.join(', ')}
+        RETURNING *;
+      `;
+
+        // Execute the query
+        const result = await pool.query(query, values);
+
+        // Return the inserted todos
+        res.status(201).json(result.rows);
     } catch (error) {
-        console.error('Error creating todo:', error);
-        res.status(500).json({ error: 'An error occurred while creating the todo.' });
+        console.error('Error creating todos:', error);
+        res.status(500).json({ error: 'An error occurred while creating todos.' });
     }
 });
