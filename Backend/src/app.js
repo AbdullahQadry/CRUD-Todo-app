@@ -28,3 +28,22 @@ app.get('/users', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching users.' });
     }
 });
+
+// Route to get todos for a specific user
+app.get('/users/:id/todos', async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        // Query the database for todos of the given user
+        const result = await pool.query(
+            'SELECT * FROM todos WHERE user_id = $1',
+            [userId]
+        );
+
+        // Send the todos as the response
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching todos:', error);
+        res.status(500).json({ error: 'An error occurred while fetching todos.' });
+    }
+});
