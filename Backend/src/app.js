@@ -15,20 +15,6 @@ app.listen(PORT, () => {
     console.log(`Server Listening on PORT: ${PORT}`);
 });
 
-// Route to get all users
-app.get('/users', async (req, res) => {
-    try {
-        // Query the database to fetch all users
-        const result = await pool.query('SELECT * FROM users');
-
-        // Send the list of users as the response
-        res.json(result.rows);
-    } catch (error) {
-        console.error('Error fetching users:', error);
-        res.status(500).json({ error: 'An error occurred while fetching users.' });
-    }
-});
-
 // Route to get todos for a specific user
 app.get('/users/:id/todos', async (req, res) => {
     const userId = req.params.id;
