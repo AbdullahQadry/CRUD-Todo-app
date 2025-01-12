@@ -47,3 +47,26 @@ app.get('/users/:id/todos', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching todos.' });
     }
 });
+
+app.post('/users/:id/todos', async (req, res) => {
+    const userId = req.params.id;
+    const { content } = req.body;
+
+    if (!content) {
+        return res.status(400).json({ error: 'Todo content is required.' });
+    }
+
+    try {
+        // Insert the new todo into the database
+        const result = await pool.query(
+            'INSERT INTO todos (user_id, content) VALUES ($1, $2) RETURNING *',
+            [userId, content]
+        );
+
+        // Return the newly created todo
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error('Error creating todo:', error);
+        res.status(500).json({ error: 'An error occurred while creating the todo.' });
+    }
+});
