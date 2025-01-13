@@ -39,12 +39,8 @@ export const authHandler = {
     
     logout: async () => {
         try {
-            await signOut(auth);
-            authStore.update(store => ({
-                ...store,
-                user: null,
-                loading: false,
-            }));
+            localStorage.removeItem("token");
+            window.location.href = "/";
         } catch (error) {
             console.error("Error during logout:", error);
             throw error;
