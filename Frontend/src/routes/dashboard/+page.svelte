@@ -10,6 +10,8 @@
     let editInput;
     let addTodoInput;
 
+    const backend_url = "localhost:3000";
+
     authStore.subscribe((curr) => {
         TodoList = curr.data.todos;
     });
@@ -19,7 +21,7 @@
             console.log("StoreTodo");
             const token = localStorage.getItem("token");
             const userId = localStorage.getItem("userId");
-            fetch(`http://127.0.0.1:3000/users/${userId}/todos`, {
+            fetch(`http://${backend_url}/users/${userId}/todos`, {
                 method: "POST",
                 body: JSON.stringify(TodoList),
                 headers: {

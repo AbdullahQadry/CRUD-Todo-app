@@ -11,12 +11,14 @@
     let token; // Store the token after login
     let userId;
 
+    const backend_url = "localhost:3000";
+
     onMount(() => {
         SubmitBtn.focus();
     });
 
     async function registerUser(email, password) {
-        const response = await fetch("http://localhost:3000/register", {
+        const response = await fetch(`http://${backend_url}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +36,7 @@
     }
 
     async function loginUser(email, password) {
-        const response = await fetch("http://localhost:3000/login", {
+        const response = await fetch(`http://${backend_url}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

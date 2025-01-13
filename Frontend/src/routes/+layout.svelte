@@ -2,6 +2,8 @@
     import { onMount } from "svelte";
     import { authStore } from "../store/store";
 
+    const backend_url = "localhost:3000";
+
     const nonAuthRoutes = ["/", "/product"]; // Adjust public routes as necessary
 
     onMount(() => {
@@ -26,7 +28,7 @@
         console.log("we are here");
         (async () => {
             try {
-                const response = await fetch("http://127.0.0.1:3000/auth/verify", {
+                const response = await fetch(`http://${backend_url}/auth/verify`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -45,7 +47,7 @@
                 const userData = await response.json();
                 console.log("User data:", userData);
 
-                const todosResponse = await fetch(`http://127.0.0.1:3000/users/${userData.userId}/todos`, {
+                const todosResponse = await fetch(`http://${backend_url}/users/${userData.userId}/todos`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
