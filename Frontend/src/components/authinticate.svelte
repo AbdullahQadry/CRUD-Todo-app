@@ -1,8 +1,5 @@
-
 <script>
-    import {authHandler} from "../store/store";
-    import {onMount} from "svelte";
-
+    import { onMount } from "svelte";
 
     let email = "";
     let password = "";
@@ -11,14 +8,49 @@
     let register = false;
     let Authing = false;
     let SubmitBtn;
+    let token; // Store the token after login
 
     onMount(() => {
        SubmitBtn.focus();
     });
 
+    async function registerUser(email, password) {
+        const response = await fetch("http://localhost:3000/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.status === 201) {
+            return data; // Return user data
+        } else {
+            throw new Error(data.error); // Throw error for handling
+        }
+    }
+
+    async function loginUser(email, password) {
+        const response = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.status === 200) {
+            return data.token; // Return the token
+        } else {
+            throw new Error(data.error); // Throw error for handling
+        }
+    }
 
     async function VerfiyAuth() {
-
         if (Authing) return;
 
         if (!email || !password || (register && !repassword)) {
@@ -28,23 +60,27 @@
         Authing = true;
         try { 
             if (!register) {
-            await authHandler.login(email, password);
-        } else {
-            await authHandler.signup(email, password, repassword);
-        }
+                // Perform login
+                token = await loginUser(email, password);
+                // Store the token or set it up in your state/store as needed
+                console.log("Logged in successfully. Token: ", token);
+            } else {
+                // Perform registration
+                const userData = await registerUser(email, password);
+                console.log("Registered successfully. User Data: ", userData);
+            }
             error = false;
-        } catch (errational) {
-            console.log("error", errational);
+        } catch (err) {
+            console.log("Error: ", err.message);
             error = true;
-            Authing = false;
+        } finally {
+            Authing = false; // Reset the Authing status
         }
-        
     }
 
     function registerswitch() {
         register = !register;
     }
-
 
     function handleKeyDown(event) {
         if (event.key === "Enter") {
@@ -52,7 +88,6 @@
             SubmitBtn.click();
         }
     }
-
 
 </script>
 
