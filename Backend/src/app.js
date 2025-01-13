@@ -3,7 +3,7 @@ import pg from "pg";
 
 // database
 const Pool = pg.Pool
-const pool = new Pool() // configured via .env
+const pool = new Pool({"user":"quickstart-postgres-user"}) // configured via .env
 
 // webserver
 const app = express();
