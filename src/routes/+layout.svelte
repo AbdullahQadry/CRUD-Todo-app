@@ -28,7 +28,7 @@
         console.log("we are here");
         (async () => {
             try {
-                const response = await fetch(`http://${backend_url}/auth/verify`, {
+                const response = await fetch(`https://${backend_url}/auth/verify`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -47,7 +47,7 @@
                 const userData = await response.json();
                 console.log("User data:", userData);
 
-                const todosResponse = await fetch(`http://${backend_url}/users/${userData.userId}/todos`, {
+                const todosResponse = await fetch(`https://${backend_url}/users/${userData.userId}/todos`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
