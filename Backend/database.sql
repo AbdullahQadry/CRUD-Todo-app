@@ -1,7 +1,8 @@
 -- Create the users table
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    email TEXT NOT NULL
+    email TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
 );
 
 -- Create the todos table
