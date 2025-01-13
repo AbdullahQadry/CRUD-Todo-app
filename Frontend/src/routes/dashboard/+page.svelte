@@ -1,8 +1,6 @@
 <script>
   import { onMount } from 'svelte';
   import { authHandler, authStore } from '../../store/store';
-  import { getDoc, doc, setDoc } from "firebase/firestore";
-  import { auth, db } from "../../lib/firebase/firebase";
 
 
   

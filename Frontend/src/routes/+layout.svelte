@@ -1,7 +1,6 @@
 <script>
     import { onMount } from "svelte";
      import { auth, db } from "../lib/firebase/firebase";
-    import { getDoc, doc, setDoc } from "firebase/firestore";
     import { authStore } from "../store/store";
 
     const nonAuthRoutes = ["/", "product"];
@@ -25,23 +24,19 @@
                 return;
             }
 
-            let dataToSetToStore;
-            const docRef = doc(db, "users", user.uid);
-            const docSnap = await getDoc(docRef);
-            if (!docSnap.exists()) {
-                console.log("Creating User");
-                const userRef = doc(db, "users", user.uid);
-                dataToSetToStore = {
-                    email: user.email,
-                    todos: [],
-                };
-                await setDoc(userRef, dataToSetToStore, { merge: true });
-            } else {
-                console.log("Fetching User");
-                const userData = docSnap.data();
-                dataToSetToStore = userData;
-            }
+            const docRef =1;
+            console.log("Fetching User");
+            const response = await fetch(
+                "http://127.0.0.1:3000/users/1/todos",
+                { method :"GET"}   
+            );
 
+            const userData = await response.json()
+            console.log ("userData: ", userData)
+            const dataToSetToStore = {
+                    email: user.email,
+                    todos: userData,
+                };
             authStore.update((curr) => {
                 return {
                     ...curr,
