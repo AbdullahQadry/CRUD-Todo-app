@@ -14,7 +14,6 @@ app.use(express.json());
 app.use(cors())
 app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 3000;
 const JWT_KEY = process.env.JWT_KEY
 
 // Register a new user
@@ -177,6 +176,14 @@ app.get('/auth/verify', authenticateJWT, async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching todos.' });
     }
 });
+
+
+app.get('/', (req, res) => {
+    const name = process.env.NAME || 'World';
+    res.send(`Hello ${name}!`);
+});
+
+const PORT = parseInt(process.env.PORT) || 8080;
 
 app.listen(PORT, () => {
     console.log(`Server Listening on PORT: ${PORT}`);

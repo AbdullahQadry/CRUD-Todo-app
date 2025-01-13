@@ -10,7 +10,7 @@
     let editInput;
     let addTodoInput;
 
-    const backend_url = "localhost:3000";
+    const backend_url = "backend-811770959487.europe-west3.run.app";
 
     authStore.subscribe((curr) => {
         TodoList = curr.data.todos;

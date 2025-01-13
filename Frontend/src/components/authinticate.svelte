@@ -11,7 +11,7 @@
     let token; // Store the token after login
     let userId;
 
-    const backend_url = "localhost:3000";
+    const backend_url = "backend-811770959487.europe-west3.run.app";
 
     onMount(() => {
         SubmitBtn.focus();

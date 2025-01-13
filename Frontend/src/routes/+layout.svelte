@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { authStore } from "../store/store";
 
-    const backend_url = "localhost:3000";
+    const backend_url = "backend-811770959487.europe-west3.run.app";
 
     const nonAuthRoutes = ["/", "/product"]; // Adjust public routes as necessary
 
