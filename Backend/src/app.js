@@ -127,8 +127,8 @@ app.post('/users/:id/todos', authenticateJWT, async (req, res) => {
         return res.status(403).json({ error: 'Permission denied' });
     }
 
-    if (!Array.isArray(todos) || todos.length === 0) {
-        return res.status(401).json({ error: 'A non-empty array of todos is required.' });
+    if (!Array.isArray(todos)) {
+        return res.status(401).json({ error: 'An array of todos is required.' });
     }
 
     try {
