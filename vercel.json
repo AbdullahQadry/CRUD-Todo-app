@@ -1,9 +1,0 @@
-{
-    "projects": {
-        "Frontend": {
-            "root": "Frontend/",
-            "buildCommand": "vite build",
-            "outputDirectory": "dist"
-        }
-    }
-}
