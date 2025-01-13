@@ -18,7 +18,8 @@
         try {
             console.log("StoreTodo");
             const token = localStorage.getItem("token");
-            fetch("http://127.0.0.1:3000/users/4/todos", {
+            const userId = localStorage.getItem("userId");
+            fetch(`http://127.0.0.1:3000/users/${userId}/todos`, {
                 method: "POST",
                 body: JSON.stringify(TodoList),
                 headers: {

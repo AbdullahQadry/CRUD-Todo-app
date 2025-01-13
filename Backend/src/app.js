@@ -137,6 +137,11 @@ app.post('/users/:id/todos', authenticateJWT, async (req, res) => {
         const delteResult = await pool.query('DELETE FROM todos WHERE user_id = $1', [userId]);
         console.log(`Deleted ${delteResult.rowCount} todos for user ${userId}.`)
 
+        if (todos.length === 0) {
+            res.status(201).json([]);
+            return;
+        }
+
         // Create query placeholders for bulk insert
         const values = [];
         const placeholders = todos.map((content, index) => {

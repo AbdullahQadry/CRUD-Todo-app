@@ -39,7 +39,7 @@ export const authHandler = {
     
     logout: async () => {
         try {
-            localStorage.removeItem("token");
+            localStorage.clear()
             window.location.href = "/";
         } catch (error) {
             console.error("Error during logout:", error);
