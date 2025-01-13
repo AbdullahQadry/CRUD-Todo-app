@@ -22,8 +22,16 @@
     
     async function StoreTodo() {
            try {
-            const userRef = doc(db, 'users', $authStore.user.uid);
-            await setDoc(userRef, { todos: TodoList }, { merge: true });
+            // const userRef = doc(db, 'users', $authStore.user.uid);
+            // await setDoc(userRef, { todos: TodoList }, { merge: true });
+            fetch(
+                "http://127.0.0.1:3000/users/1/todos",
+                { method :"POST", body: JSON.stringify(TodoList),  
+                headers: {
+                 "Content-Type": "application/json",
+                },}
+                
+            )
     
            } catch (error) {
                console.log('There was an error saving',error);

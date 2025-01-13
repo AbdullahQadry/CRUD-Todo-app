@@ -1,5 +1,6 @@
 import express from "express";
 import pg from "pg";
+import cors from "cors";
 
 // database
 const Pool = pg.Pool
@@ -8,6 +9,7 @@ const pool = new Pool({"user":"quickstart-postgres-user"}) // configured via .en
 // webserver
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 const PORT = process.env.PORT || 3000;
 
@@ -38,9 +40,10 @@ app.get('/users/:id/todos', async (req, res) => {
 app.post('/users/:id/todos', async (req, res) => {
     const userId = req.params.id;
     const todos = req.body;
+    console.log(todos)
 
     if (!Array.isArray(todos) || todos.length === 0) {
-        return res.status(400).json({ error: 'A non-empty array of todos is required.' });
+        return res.status(401).json({ error: 'A non-empty array of todos is required.' });
     }
 
     try {
@@ -62,7 +65,8 @@ app.post('/users/:id/todos', async (req, res) => {
         VALUES ${placeholders.join(', ')}
         RETURNING *;
       `;
-
+      console.log (query)
+      console.log (values)
         // Execute the query
         const result = await pool.query(query, values);
 
