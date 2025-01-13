@@ -32,10 +32,12 @@
             );
 
             const userData = await response.json()
+            const TodoItems = userData.map((item)=>{return item.content})
             console.log ("userData: ", userData)
+            console.log ("TodoItems: ", TodoItems)
             const dataToSetToStore = {
                     email: user.email,
-                    todos: userData,
+                    todos: TodoItems,
                 };
             authStore.update((curr) => {
                 return {
