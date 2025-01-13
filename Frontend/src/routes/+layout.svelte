@@ -1,55 +1,79 @@
 <script>
     import { onMount } from "svelte";
-     import { auth, db } from "../lib/firebase/firebase";
     import { authStore } from "../store/store";
 
-    const nonAuthRoutes = ["/", "product"];
+    const nonAuthRoutes = ["/", "/product"]; // Adjust public routes as necessary
 
     onMount(() => {
         console.log("Mounting");
-        const unsubscribe = auth.onAuthStateChanged(async user => {
-            const currentPath = window.location.pathname;
 
-            if (!user && !nonAuthRoutes.includes(currentPath)) {
-                window.location.href = "/";
-                return;
-            }
+        const token = localStorage.getItem("token"); // Retrieve the JWT token from localStorage
+        const currentPath = window.location.pathname;
+        console.log(token, currentPath);
 
-            if (user && currentPath === "/") {
-                window.location.href = "/dashboard";
-                return;
-            }
+        if (!token && !nonAuthRoutes.includes(currentPath)) {
+            window.location.href = "/";
+            return;
+        }
 
-            if (!user) {
-                return;
-            }
+        if (token && currentPath === "/") {
+            window.location.href = "/dashboard";
+            return;
+        }
 
-            const docRef =1;
-            console.log("Fetching User");
-            const response = await fetch(
-                "http://127.0.0.1:3000/users/1/todos",
-                { method :"GET"}   
-            );
+        if (!token) return; // Stop further execution if no token is found
 
-            const userData = await response.json()
-            const TodoItems = userData.map((item)=>{return item.content})
-            console.log ("userData: ", userData)
-            console.log ("TodoItems: ", TodoItems)
-            const dataToSetToStore = {
-                    email: user.email,
-                    todos: TodoItems,
-                };
-            authStore.update((curr) => {
-                return {
+        console.log("we are here");
+        (async () => {
+            try {
+                const response = await fetch("http://127.0.0.1:3000/auth/verify", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                console.log("response: ", response);
+
+                if (response.status === 401) {
+                    // Token is invalid or expired
+                    localStorage.removeItem("token");
+                    window.location.href = "/";
+                    return;
+                }
+
+                const userData = await response.json();
+                console.log("User data:", userData);
+
+                const todosResponse = await fetch(`http://127.0.0.1:3000/users/${userData.userId}/todos`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (todosResponse.status === 403) {
+                    console.error("Permission denied");
+                    return;
+                }
+
+                const todosData = await todosResponse.json();
+                const TodoItems = todosData.map((item) => item.content);
+
+                authStore.update((curr) => ({
                     ...curr,
-                    user,
-                    data: dataToSetToStore,
+                    user: userData,
+                    data: { email: userData.email, todos: TodoItems },
                     loading: false,
-                };
-            });
-        });
-        return unsubscribe;
+                }));
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                localStorage.removeItem("token");
+                window.location.href = "/";
+            }
+        })();
     });
-
 </script>
-<slot/>
+
+<slot />

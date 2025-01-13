@@ -62,8 +62,10 @@
             if (!register) {
                 // Perform login
                 token = await loginUser(email, password);
+                localStorage.setItem("token", token);
                 // Store the token or set it up in your state/store as needed
                 console.log("Logged in successfully. Token: ", token);
+                window.location.href = "/dashboard";
             } else {
                 // Perform registration
                 const userData = await registerUser(email, password);

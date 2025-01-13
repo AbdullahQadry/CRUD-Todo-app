@@ -60,7 +60,6 @@ app.post('/login', async (req, res) => {
         }
 
         // Verify the password
-        console.log("password: ", password, "\nuser: ", user)
         const match = await bcrypt.compare(password, user.password_hash);
 
         if (!match) {
@@ -69,7 +68,7 @@ app.post('/login', async (req, res) => {
 
         // Generate a JWT
         const token = jwt.sign({ id: user.id, email: user.email }, JWT_KEY, { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token, user_id: user.id });
     } catch (error) {
         console.error('Error logging in user:', error);
         res.status(500).json({ error: 'An error occurred during login.' });
@@ -79,6 +78,7 @@ app.post('/login', async (req, res) => {
 // Middleware to verify JWT
 const authenticateJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
+    console.log("req.headers: ", req.headers)
 
     if (authHeader) {
         const token = authHeader.split(' ')[1];
@@ -160,6 +160,16 @@ app.post('/users/:id/todos', authenticateJWT, async (req, res) => {
     } catch (error) {
         console.error('Error creating todos:', error);
         res.status(500).json({ error: 'An error occurred while creating todos.' });
+    }
+});
+
+// Get the user_id for a token
+app.get('/auth/verify', authenticateJWT, async (req, res) => {
+    try {
+        res.json({ userId: req.user.id });
+    } catch (error) {
+        console.error('Error fetching todos:', error);
+        res.status(500).json({ error: 'An error occurred while fetching todos.' });
     }
 });
 
